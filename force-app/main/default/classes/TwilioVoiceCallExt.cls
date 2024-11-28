@@ -1,6 +1,6 @@
 public class TwilioVoiceCallExt
 {
- public String mobileNumber {get;set;}
+ /*public String mobileNumber {get;set;}
  public String responseBody {get;set;}
  public CallResponse callRes{get;set;}
  public String DEFAULT_VERSION = '2010-04-01';
@@ -58,5 +58,5 @@ public class TwilioVoiceCallExt
  public class CallResponse 
  {
  public String Status; 
- }
+ }*/
 }
