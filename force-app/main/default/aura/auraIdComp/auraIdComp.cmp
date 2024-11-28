@@ -1,0 +1,6 @@
+<aura:component >
+    <ui:inputText label="Name" aura:id="name"/>
+     <ui:outputText aura:id="nameoutput" value="" />
+     <ui:button aura:id="outputbutton" label="submit" press="{!c.getinput}"/>                                            
+                                                 
+</aura:component>

@@ -1,0 +1,97 @@
+<apex:page controller="SelectListController">
+
+  <apex:form >
+    <apex:pageBlock >
+
+        <apex:pageBlockTable value="{!items}" var="i">
+
+           <!-- <apex:column value="{!i.record.Name}"/> -->
+
+            <apex:column Title="Accounts">
+                <apex:selectList styleclass="Lista" value="{!i.ParentValue}" id="parentid" size="1" Onclick="functiondemo()">
+                   <!--<apex:actionSupport event="onclick" action="functiondemo()" />-->
+                    <apex:selectOptions value="{!parentOptions}" />
+
+                    <apex:actionSupport event="onchange" reRender="contacts">
+                    <!--<apex:param name="cmIdValue" value="{!parentOptions[0].name}" assignTo="{!testParentvalue}"/>-->
+                    </apex:actionSupport>
+                </apex:selectList>
+            </apex:column>
+
+ 
+
+            <apex:column >
+
+                <apex:selectList value="{!showRelease}" size="1" id="contacts">
+
+                    <apex:selectOptions value="{!i.VerticalOptions }"/>
+
+                <apex:actionSupport event="onchange" action="{!savedetails}" >
+
+            </apex:actionsupport>
+
+                </apex:selectList>
+            </apex:column>
+
+        </apex:pageBlockTable>
+        <!--apex:actionFunction name="RenderSection" action="{!rendersec}" rerender="n1"/-->
+
+                <apex:pageBlockSection >
+
+                    <apex:chart id="n1" height="400" width="1000" data="{!NovasuiteData}"  background="white">
+
+                        <apex:legend position="bottom"/>
+
+                        <apex:axis type="Numeric" position="left" fields="a" title="No Of Issues" grid="false" minimum="0" maximum="12"/>
+
+                        <apex:axis type="Category" position="bottom" fields="name" title="Novasuite">
+
+                            <apex:chartLabel rotate="360"/>
+
+                        </apex:axis>
+
+                        <apex:barSeries orientation="vertical" axis="left" xField="name" yField="a,b," title=" Production Count,Count w/o Govn, Gatings values "  colorSet="darkblue,skyblue,Red" groupGutter="10">
+
+                            <apex:chartTips height="50" width="100" />
+
+                          <!--  <apex:chartLabel display="outside" orientation="horizontal"/> -->
+
+                        </apex:barSeries>
+
+                    </apex:chart>
+
+                </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+
+ <script type="text/javascript">
+                
+                 function functiondemo()
+                {
+                 <!--  var e = document.getElementsByClassName("Lista")[0];
+                    var strUser = e.options[e.selectedIndex].value;
+                    console.log('demo'+strUser );
+                    var d = parentdata(strUser); 
+                  SelectListController.parentdata(strUser,DF12Examples.renderResults);  -->
+                  var a = document.getElementById(parentId).value;
+                  alert(a);
+                  var b;
+                  var c;
+                         Visualforce.remoting.Manager.invokeAction(
+                                '{!$RemoteAction.SelectListController.parentdata}',
+                                   a, 
+                                    function(result, event){
+                                    if (event.status) { 
+                                           for (var n=0; n<result.length; n++){                                    
+                                      console.log('result>>>>.'+result);
+                                     }
+                                  }
+                                  },
+
+          
+                
+                {escape: true}
+                            );
+                }
+    </script>
+</apex:page>

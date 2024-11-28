@@ -1,0 +1,16 @@
+<template>
+    <div class="slds-m-top_medium slds-m-bottom_x-large">
+        <h2 class="slds-text-heading_medium slds-m-bottom_medium">
+            contact Records of Account
+        </h2>
+        <!-- Simple -->
+        <lightning-button onclick={handleKeyChange} value="Submit" label="Submit" variant="brand"></lightning-button>
+        <div class="slds-p-around_medium lgc-bg" style="height: 300px;">
+            <lightning-datatable
+                    key-field="id"
+                    data={accounts}
+                    columns={columns}>
+            </lightning-datatable>
+        </div>
+    </div>
+</template>

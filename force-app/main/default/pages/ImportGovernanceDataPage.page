@@ -1,0 +1,54 @@
+<apex:page controller="importDataFromCSVController">
+  
+  <Style>
+    .save {
+        text-align: -webkit-center;
+       }
+        td.dataCol.first.last {
+        text-align: right;
+       }
+       p {
+            font-size:12px;
+            color:#667C26;
+            font-weight:bold;
+            text-align: Left;
+       } 
+  </Style>
+   
+      <apex:form >
+        <apex:pagemessages />
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="3" title="Please upload your Governance Data here">
+                  <apex:inputFile value="{!csvFileBody}"  filename="{!csvAsString}"/>
+                  <apex:commandButton value="Import Governance Data" action="{!importCSVFile}"/>
+            </apex:pageBlockSection>
+            <apex:pageblocktable value="{!Verticallist}" var="vs">
+              <apex:column value="{!vs.Sprint__c}" />
+              <apex:column value="{!vs.Production_Count__c}" />
+              <apex:column value="{!vs.Count_w_o_Govn__c}" />
+              <apex:column value="{!vs.GATING_VIOLATIONS__C }" />
+              <apex:column value="{!vs.Red__c}" />
+              <apex:column value="{!vs.Yellow__c}" />
+              <apex:column value="{!vs.Coverage_w__c}" />
+              <apex:column value="{!vs.Coverage_w_o_Govn__c}" />
+              <apex:column value="{!vs.Total_Components__c}" />
+              <apex:column value="{!vs.Sf_Expected_Coverage__c}" />
+              <apex:column value="{!vs.Sprint_Thresold_Coverage__c}"/>
+              <apex:column value="{!vs.Blocker_Issue__c}"/>
+              <apex:column value="{!vs.Critical_Issue__c}"/>
+              <apex:column value="{!vs.Major_Issue__c}"/>
+              <apex:column value="{!vs.Name}" />
+       </apex:pageblocktable>
+            <apex:pageBlockSection >
+                  <apex:commandButton value="Save" action="{!save}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Steps to understand how to import the data">
+              <div>
+                  <p> 1.Initially click on Choose File and select the CSV File <br/> </p>
+                  <p> 2.Then click on Import Governance Data Button <br/></p>   
+                  <p> 3.Finally click the save button to save the record<br/></p> 
+              </div>     
+            </apex:pageBlockSection> 
+     </apex:pageBlock>
+   </apex:form>
+</apex:page>

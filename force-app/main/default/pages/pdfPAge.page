@@ -1,0 +1,19 @@
+<apex:page controller="V3323232" showHeader="false">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  
+  This is your new Page 
+  
+  <apex:pageBlock >
+
+            <!-- BOUTONS  -->
+            <div style="text-align : right;" >
+            <apex:form >
+                <apex:commandButton value="pdf" action="{!generatePdf1}">
+                </apex:commandButton>
+                  </apex:form>
+            </div>
+    </apex:pageBlock>
+  
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

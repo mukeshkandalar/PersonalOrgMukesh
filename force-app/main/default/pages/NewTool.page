@@ -1,0 +1,350 @@
+<apex:page controller="ChartContr" standardStylesheets="false"  showHeader="false">
+   <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <style>
+                .dropdown-submenu {
+                    position: relative;
+                }
+                .dropdown-submenu .dropdown-menu {
+                    top: 0;
+                    left: 100%;
+                    margin-top: 10px;
+                }
+                [hidden], template{
+                    display:block !important;
+                }
+                body {
+                    background-color:#ffecd8;
+                    
+                }
+                .margin_top_graph {
+                    margin-top: 30px;
+                    text-align: -webkit-center;
+                }
+                 .margin_top_graph1 {
+                    margin-top: 30px;
+                   text-align: -webkit-center;
+                }
+                td.dataCol.first.last {
+                    border: 2px solid black;
+                }
+                .line-height{
+                    line-height: 1.308571 !important;
+                    float:left; 
+                    margin-right: 30px;
+                }
+                option {
+                    background-color: #fff;
+                }
+                p {
+                    font-size:16px;
+                    color:#667C26;
+                    font-weight:bold;
+                    font-style:italic;
+                }
+                h2 {
+                    color:#667C26;
+                }
+                .Govn {
+                color:#667C26;
+                font-weight:bold;
+                font-style:italic;
+                }
+                </style>
+        </head>
+        
+        <body>
+            <div class="container">
+                <h2><apex:image value="{!$Resource.Logo}"  style="height:10%;width:10%; align-left"/>Governance Dashboard</h2>
+                <p>please select your required Vertical graph of Code Review ,Code Coverage , Static Code Analyzer and Codescan </p>
+                <div class="dropdown">
+                    <button id="AllVerticalGraphs" class="btn btn-default dropdown-toggle line-height" type="button" data-toggle="dropdown">AllVerticalGraphs
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                     <li><a tabindex="-1" id="Novasuite" Onclick="VerticalGraph(this.id)">Novasuite</a></li>
+                     <li><a tabindex="-1" id="AllVerticalGraphs" Onclick="VerticalGraph(this.id)">AllVerticalGraphs</a></li>
+                       <li class="dropdown-submenu">
+                            <a class="test" tabindex="-1" href="#">Code Review <span class="caret"></span></a>
+                            <ul class="dropdown-menu" >
+                                <li><a tabindex="-1" id="All Verticals Code Review" onmouseover="VerticalGraph(this.id)">All verticals Code Review</a></li>
+                                <li>
+                                    <a tabindex="-1" id="Frictionless Code Review" onmouseover="VerticalGraph(this.id)">Frictionless Code Review</a>
+                                </li>
+                           </ul>
+                      </li> 
+                    <li class="dropdown-submenu">
+                        <a class="test" tabindex="-1" href="#">Code Coverage <span class="caret"></span></a>
+                        <ul class="dropdown-menu" >
+                            <li><a tabindex="-1" id="POR Code Coverage" onmouseover="VerticalGraph(this.id)">POR Code Coverage</a></li>
+                            <li>
+                                <a tabindex="-1" id="Frictionless Code Coverage" onmouseover="VerticalGraph(this.id)">Frictionless Code Coverage</a>
+                            </li>
+                        </ul>
+                    </li>    
+                    </ul>  
+                    <apex:form >   
+     <apex:outputpanel id="test">
+        <apex:selectList styleclass="btn btn-default line-height" multiselect="false" value="{!showRelease}" size="1">
+            <apex:selectOptions value="{!graphAdvantage}"/>
+            <apex:actionSupport event="onchange" action="{!savedetails}" reRender="n1,n4,n3,n5,n2,n6,n7,n8,n9 ">
+            </apex:actionsupport>
+        </apex:selectList> 
+         </apex:outputpanel>
+        <apex:actionFunction name="RenderSection" action="{!rendersec}" rerender="n1"/>  
+        <apex:actionFunction name="RenderSection1" action="{!rendersec1}" rerender="n4"/>
+        <apex:actionFunction name="RenderSection2" action="{!rendersec2}" rerender="n3"/>
+        <apex:actionFunction name="RenderSection3" action="{!rendersec3}" rerender="n5"/>
+        <apex:actionFunction name="RenderSection4" action="{!rendersec4}" rerender="n2"/>
+        <apex:actionFunction name="RenderSectionA" action="{!rendersec5}" rerender="n6"/>
+        <apex:actionFunction name="RenderSectionB" action="{!rendersec5}" rerender="n7"/>
+        <apex:actionFunction name="RenderSectionC" action="{!rendersec5}" rerender="n8"/>
+        <apex:actionFunction name="RenderSectionD" action="{!rendersec5}" rerender="n9"/> 
+        <apex:commandButton styleclass="btn btn-default line-height" action="{!Move}" value="Import Governance data" onclick="toggleSpinner();" immediate="true" rendered="{!IF($Profile.Name == 'System Administrator' && $User.Title == 'Salesforce Governance',true,false)}"/>
+
+         </apex:form> 
+                </div>
+                
+            </div>
+        </body>
+    </html> 
+        <apex:pageBlock id="graph333"> 
+            <div id="ftGraph" class="margin_top_graph">
+                <apex:pageBlockSection >                
+                    <apex:chart id="n5" height="400" width="1000" data="{!FtData}" background="white">
+                        <apex:legend position="bottom"/>
+                        <apex:axis type="Numeric" position="left" fields="data1" title="% Code Coverage" grid="false" minimum="0" maximum="120"/>
+                        <apex:axis type="Category" position="bottom" fields="name" title="Frictionless Code Coverage">
+                            <apex:chartLabel rotate="360"/>
+                        </apex:axis>
+                        <apex:lineSeries axis="left" xField="name" yField="data4" title="Salesforce Coverage" strokeColor="Red" strokeWidth="4"/>
+                        <apex:lineSeries axis="left" xField="name" yField="data5" title="Sprint Coverage" strokeColor="Yellow" strokeWidth="4"/>
+                        <apex:barSeries orientation="vertical" axis="left" xField="name" yField="data1,data2,data3" title="Coverage W/O Govn, Coverage with Govn, Total Components" colorSet="darkblue,Skyblue,orange" stacked="false" groupGutter="10" Gutter="20">
+                            <apex:chartTips height="20" width="100" />
+                            <apex:chartLabel display="outside" orientation="horizontal"/>
+                        </apex:barSeries>
+                    </apex:chart>
+                </apex:pageBlockSection>
+            </div>
+            
+           <div id="porGraph" class="margin_top_graph">
+                <apex:pageBlockSection id="n4">
+                    <apex:chart height="400" width="1000"  data="{!PorData}" background="white">
+                        <apex:legend position="bottom"/>
+                        <apex:axis type="Numeric" position="left" fields="data1" title="% Code Coverage" grid="false" minimum="0" maximum="120" />
+                        <apex:axis type="Category" position="bottom" fields="name" title="POR Code Coverage">
+                          <apex:chartLabel rotate="360"/> 
+                        </apex:axis>
+                        <apex:lineSeries axis="left" xField="name" yField="data4" title="Salesforce Coverage" strokeColor="Red" strokeWidth="4"/>
+                        <apex:lineSeries axis="left" xField="name" yField="data5" title="Sprint Coverage" strokeColor="Yellow" strokeWidth="4"/>
+                        <apex:barSeries orientation="vertical" axis="left" xField="name" yField="data1,data2,data3" title="Coverage W/O Govn, Coverage with Govn,Total Components" colorSet="darkblue,Skyblue,orange" groupGutter="10" Gutter="20">
+                            <apex:chartTips height="20" width="100" /> 
+                            <apex:chartLabel display="outside" orientation="horizontal"/>
+                        </apex:barSeries>
+                    </apex:chart>
+                </apex:pageBlockSection>
+            </div> 
+            
+            <div id="ReviewGraph" class="margin_top_graph">
+                <apex:pageBlockSection >
+                    <apex:chart id="n3" height="400" width="1000" data="{!ReviewData}" background="white">
+                        <apex:legend position="bottom"/>
+                        <apex:axis type="Numeric" position="left" fields="A" title="No Of Issues" grid="true" minimum="0" maximum="15"/>
+                        <apex:axis type="Category" position="bottom" fields="name" title="Code Review" >
+                            <apex:chartLabel rotate="360"/>
+                        </apex:axis>
+                        <apex:barSeries orientation="vertical" axis="left" xField="name" yField="A,B" title=" Red Gating Status, Yellow gating status "  stacked="true"  colorSet="Red,Yellow">
+                            <apex:chartTips height="20" width="100" />
+                            <apex:chartLabel display="outside" orientation="horizontal"/>
+                        </apex:barSeries>
+                    </apex:chart>
+                </apex:pageBlockSection>
+            </div>  
+            
+            <div id="FTReviewGraph" class="margin_top_graph">
+                <apex:pageBlockSection >
+                    <apex:chart id="n2" height="400" width="1000" data="{!FTReviewData}" background="white">
+                        <apex:legend position="bottom" spacing="2"/>
+                        <apex:axis type="Numeric" position="left" fields="A" title="No Of Issues" grid="True" minimum="0" maximum="15"/>
+                        <apex:axis type="Category" position="bottom" fields="name" title="Frictionless Code Review">
+                            <apex:chartLabel rotate="360"/>
+                        </apex:axis>
+                        <apex:barSeries orientation="vertical" axis="left" xField="A" yField="A,B" title=" Red Gating Status, Yellow gating status "  stacked="true"  colorSet="Red,Yellow" groupGutter="20">
+                            <apex:chartTips height="20" width="100" />
+                            <apex:chartLabel display="outside" orientation="horizontal"/>
+                        </apex:barSeries>
+                    </apex:chart>
+                </apex:pageBlockSection>
+            </div> 
+         
+            <div id="NovasuiteGraph" class="margin_top_graph">
+                <apex:pageBlockSection >
+                    <apex:chart id="n1" height="400" width="1000" data="{!NovasuiteData}"  background="white">
+                        <apex:legend position="bottom"/>
+                        <apex:axis type="Numeric" position="left" fields="a" title="No Of Issues" grid="false" minimum="0"/>
+                        <apex:axis type="Category" position="bottom" fields="name" title="Novasuite">
+                            <apex:chartLabel rotate="360"/>
+                        </apex:axis>
+                        <apex:barSeries orientation="vertical" axis="left" xField="name" yField="a,b,c" title=" Production Count,Count w/o Govn, Gatings values "  colorSet="darkblue,skyblue,Red" groupGutter="10">
+                            <apex:chartTips height="50" width="100" />
+                           <apex:chartLabel display="outside" orientation="horizontal"/>
+                        </apex:barSeries>
+                    </apex:chart>
+                </apex:pageBlockSection>
+            </div>         
+    <div id="VerticalGraphs">
+       <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12" id="n10">
+            <div class="row margin_top_graph1">
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                    <apex:chart id="n6" height="250" width="650" data="{!NovasuiteData}" background="white">
+                        <apex:legend position="bottom"/>
+                        <apex:axis type="Numeric" position="left" fields="a" title="No Of Violations" grid="false" minimum="0"/>
+                        <apex:axis type="Category" position="bottom" fields="name" title="Novasuite">
+                            <apex:chartLabel rotate="360"/>
+                        </apex:axis>
+                        <apex:barSeries orientation="vertical" axis="left" xField="name" yField="a,b,c" title=" Production Count,Count w/o Govn, Gatings values "  colorSet="darkblue,skyblue,Red" groupGutter="10">
+                            <apex:chartTips height="20" width="100" labelField="name"/>
+                            <apex:chartLabel display="outside" orientation="horizontal"/>
+                        </apex:barSeries>
+                    </apex:chart>   
+                </div>
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                
+                <apex:chart id="n7" height="250" width="650" data="{!ReviewData}" background="white">
+                        <apex:legend position="bottom"/>
+                        <apex:axis type="Numeric" position="left" fields="A" title="No Of Violations" grid="true"  minimum="0" maximum="20"/>
+                        <apex:axis type="Category" position="bottom" fields="name" title="Code Review" >
+                            <apex:chartLabel rotate="360"/>
+                        </apex:axis>
+                        <apex:barSeries orientation="vertical" axis="left" xField="name" yField="A,B" title=" Red Gating Status, Yellow gating status "  stacked="true"  colorSet="Red,yellow">
+                            <apex:chartTips height="20" width="100" />
+                            <apex:chartLabel display="outside" orientation="horizontal"/>
+                        </apex:barSeries>
+                </apex:chart>    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+            <div class="row margin_top_graph">
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                    <apex:chart id="n8" height="250" width="650" data="{!FtData}" background="white">
+                        <apex:legend position="bottom" Spacing="5"/>
+                        <apex:axis type="Numeric" position="left" fields="data1" title="% Code Coverage" grid="false" minimum="0" maximum="100"/>
+                        <apex:axis type="Category" position="bottom" fields="name" title="Frictionless Code Coverage">
+                            <apex:chartLabel rotate="360"/>
+                        </apex:axis>
+                        <apex:lineSeries axis="left" xField="name" yField="data4" title="Salesforce Cov" strokeColor="Red" strokeWidth="2" markerSize="0"/>
+                        <apex:lineSeries axis="left" xField="name" yField="data5" title="Sprint Cov" strokeColor="Yellow" strokeWidth="2" markerSize="0"/>
+                        <apex:barSeries orientation="vertical" axis="left" xField="name" yField="data1,data2,data3" title="Coverage W/O Gov, Coverage with Gov, Total Components" colorSet="darkblue,Skyblue,orange" groupGutter="20" Gutter="20">
+                            <apex:chartTips height="20" width="100" />
+                            <apex:chartLabel display="outside" orientation="horizontal"/>
+                        </apex:barSeries>
+                    </apex:chart>   
+                 </div>
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <apex:chart id="n9" height="250" width="650" data="{!PorData}" background="white">
+                        <apex:legend position="bottom" Spacing="5"/>
+                        <apex:axis type="Numeric" position="left" fields="data1" title="% Code Coverage" grid="false" minimum="0" maximum="100"/>
+                        <apex:axis type="Category" position="bottom" fields="name" title="POR Code Coverage">
+                            <apex:chartLabel rotate="360"/>
+                        </apex:axis>
+                        <apex:lineSeries axis="left" xField="name" yField="data4" title="Salesforce Cov" strokeColor="Red" strokeWidth="2"  markerSize="0"/>
+                        <apex:lineSeries axis="left" xField="name" yField="data5" title="Sprint Cov" strokeColor="Yellow" strokeWidth="2"  markerSize="0"/>
+                        <apex:barSeries orientation="vertical" axis="left" xField="name" yField="data1,data2,data3" title="Coverage W/O Gov, Coverage with Gov,Total Components" colorSet="darkblue,Skyblue,orange" groupGutter="20" Gutter="20">
+                            <apex:chartTips height="20" width="100" /> 
+                            <apex:chartLabel display="outside" />
+                        </apex:barSeries>
+                    </apex:chart>
+                </div>
+            </div>
+        </div>
+    </div>     
+  </apex:pageBlock>   
+  <marquee class="Govn margin_top_graph" style="font-size:115%" color="#fffff"> Note : If you are  not able to open any Graph, please Contact to Governance Team [SFDC.Governance@accenture.com] </marquee>
+   
+    <script type="text/javascript">
+                $(document).ready(function(){
+                $('#VerticalGraphs').show();
+                $('#ftGraph').hide();
+                $('#porGraph').hide();
+                $('#ReviewGraph').hide();
+                $('#FTReviewGraph').hide();
+                $('#NovasuiteGraph').hide();    
+                $('.dropdown-submenu a.test').on("click", function(e){
+                $(this).next('ul').toggle();
+                e.stopPropagation();
+                e.preventDefault();  
+                
+            });   
+        }); 
+           function VerticalGraph(demoString){
+            console.log('in VerticalGraph'+demoString);
+            document.getElementById("AllVerticalGraphs").innerHTML = demoString;
+            if(demoString == 'All Verticals Code Review') {
+                RenderSection2();
+                $('#ReviewGraph').show();
+                $('#porGraph').hide();
+                $('#ftGraph').hide();
+                $('#NovasuiteGraph').hide();
+                $('#FTReviewGraph').hide();
+                $('#VerticalGraphs').hide();
+                
+            }
+            if(demoString == 'Frictionless Code Review') {
+                RenderSection4();
+                $('#ReviewGraph').show();
+                $('#porGraph').hide();
+                $('#ftGraph').hide();
+                $('#NovasuiteGraph').hide();
+                $('#FTReviewGraph').hide();
+                $('#VerticalGraphs').hide();
+               } 
+            if(demoString == 'POR Code Coverage'){
+                RenderSection1();
+                $('#ReviewGraph').hide();
+                $('#ftGraph').hide();
+                $('#porGraph').show();
+                $('#NovasuiteGraph').hide();
+                $('#FTReviewGraph').hide();
+                $('#VerticalGraphs').hide();
+                
+            }
+            if(demoString == 'Frictionless Code Coverage'){
+                RenderSection3();
+                $('#ftGraph').show();
+                $('#porGraph').hide();
+                $('#ReviewGraph').hide();
+                $('#NovasuiteGraph').hide();
+                $('#FTReviewGraph').hide();
+                $('#VerticalGraphs').hide();
+             }   
+            if(demoString == 'Novasuite'){
+                console.log('in Novasuite');
+                RenderSection();
+                $('#ReviewGraph').hide();
+                $('#porGraph').hide();
+                $('#ftGraph').hide();
+                $('#NovasuiteGraph').show(); 
+                $('#FTReviewGraph').hide();  
+                $('#VerticalGraphs').hide();
+                
+            } 
+            if(demoString == 'AllVerticalGraphs'){
+                RenderSectionA();
+                RenderSectionB();
+                RenderSectionC();
+                RenderSectionD(); 
+                $('#ReviewGraph').hide();
+                $('#porGraph').hide();
+                $('#ftGraph').hide();
+                $('#NovasuiteGraph').hide(); 
+                $('#FTReviewGraph').hide();  
+                $('#VerticalGraphs').show();
+                
+            }
+        }  
+    </script>
+</apex:page>

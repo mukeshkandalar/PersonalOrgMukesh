@@ -1,0 +1,33 @@
+<apex:page controller="ApproveRejectAllRecs" action="{!appPendingRecs}">
+    <apex:form >
+        <apex:pageBlock id="test">        
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Select Records" action="{!selRecs}" rendered="{!IF(selProsInss.size<=0,true,false)}" reRender="test"/>
+                <apex:commandButton value="Approve All" action="{!approveAll}" rendered="{!IF(selProsInss.size>0,true,false)}"/>
+                <apex:commandButton value="Reject All" action="{!rejectAll}" rendered="{!IF(selProsInss.size>0,true,false)}"/>                
+                <apex:commandButton value="Cancel" action="{!cancel}" rendered="{!IF(selProsInss.size>0,true,false)}"/>
+            </apex:pageBlockButtons>
+            <apex:pageblockTable value="{!ProsInsts}" var="appRecs" rendered="{!IF(selProsInss.size<=0,true,false)}" width="70%">
+                <apex:column >
+                    <apex:inputCheckbox value="{!appRecs.selected}"/>
+                </apex:column>
+                <apex:column headerValue="Related To">            
+                    <apex:outputField value="{!appRecs.proInstce.TargetObject.Name}"  />
+                </apex:column>
+                <apex:column value="{!appRecs.proInstce.TargetObject.Type}"/>
+                <apex:column headerValue="Date Submitted for Approval">
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!appRecs.proInstce.CreatedDate}" /> 
+                    </apex:outputText>  
+                </apex:column>          
+            </apex:pageblockTable>
+            
+            <apex:pageBlockSection columns="1" rendered="{!IF(selProsInss.size>0,true,false)}" id="test1">
+                <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Comments"/>
+                <apex:inputTextArea style="width:600px;height:100px" value="{!comments}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

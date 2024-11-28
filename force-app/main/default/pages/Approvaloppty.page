@@ -1,0 +1,42 @@
+<apex:page StandardController="Opportunity" showHeader="false" tabStyle="opportunity">
+
+ <style>
+     /* to hide submit for approval button */
+     input.btn[name="piSubmit"] {
+            display: none;
+     }   
+      /* to hide recall button */
+     input.btn[name="piRemove"] {
+            display: none;
+     }          
+ </style>
+ <apex:form >
+     <input value="Recall Approval Request" id="recall" class="btn" type="button" title="Recall Approval Request"/>
+ </apex:form>
+ <apex:relatedList list="ProcessSteps"/>
+ 
+ <script>
+     var jeet = $.noConflict();
+     jeet(document).ready(function(){
+         jeet('a').each( function(){             
+             if(jeet(this).text().trim().indexOf('Show') != 0){     
+                 var addr =  ''+jeet(this).attr("href");             
+                 var idx = addr.indexOf('retURL');
+                 if(idx != -1)
+                  addr = addr.substring(0,idx)+'retURL='+'{!Opportunity.Id}';
+                 jeet(this).attr("href", "#");
+                 jeet(this).bind( "click", function() {
+                      window.parent.location= addr;
+                 });
+             } 
+         });
+         jeet('.tertiaryPalette').css("background-color", "#ddb929");
+         jeet('.secondaryPalette').css('border-top', '3px solid #ddb929');         
+     });
+     function correctRetURL(s){
+         var idx = s.indexOf('retURL');
+         if(idx != -1)
+          return s.substring(0,idx)+'retURL='+'{!Opportunity.Id}';
+     }
+ </script>
+</apex:page>

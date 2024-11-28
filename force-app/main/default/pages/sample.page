@@ -1,0 +1,10 @@
+<apex:page controller="ChartController">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  This is your new Pagesdrfdsf
+  <!-- End Default Content REMOVE THIS -->
+  
+ <apex:form >
+ <apex:commandButton value="submit" action="{!savedetails}"/> 
+ </apex:form> 
+</apex:page>

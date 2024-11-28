@@ -1,0 +1,41 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+   
+    <aura:attribute name="ContactRecord" type="Contact" default="{
+                                                                  'sObjectType' : 'Contact',
+                                                                  'FirstName' : '',
+                                                                  'LastName' : '',
+                                                                  'Email' : '',
+                                                                  'Phone' : ''
+                                                                  }"/>
+    <aura:method name="SelectedRecord" action="{!SelectedRecord}" access="public"/>
+    
+    <aura:registerEvent name="CreateContactEvent" type="c:CreateContactEvent"/>
+    <div > 
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+                <lightning:input label="FirstName" required="true"
+                                 aura:id="newContact" value="{!v.ContactRecord.FirstName}" />
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <lightning:input label="LastName" required="true"
+                                 aura:id="newContact" value="{!v.ContactRecord.LastName}" />
+            </div>
+        </div>
+    </div>
+    <div> 
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+                <lightning:input label="Email" required="true"
+                                 aura:id="newContact" value="{!v.ContactRecord.Email}" />
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <lightning:input label="Phone" required="true"
+                                 aura:id="newContact" value="{!v.ContactRecord.Phone}" />
+            </div>
+            <div>
+                <lightning:button name="Add to Review" label="Add to Review" 
+                                  Variant="brand" onclick="{!c.handleReview}"/>
+            </div>
+        </div>
+    </div>
+</aura:component>

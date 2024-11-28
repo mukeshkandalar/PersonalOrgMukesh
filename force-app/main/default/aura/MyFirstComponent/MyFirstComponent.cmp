@@ -1,0 +1,5 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <div class="slds-p-bottom_none">
+        <h1 class="red">HI I am using lightning component</h1>
+    </div>
+</aura:component>

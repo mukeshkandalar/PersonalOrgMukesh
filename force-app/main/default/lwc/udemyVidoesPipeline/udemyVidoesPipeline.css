@@ -1,0 +1,21 @@
+.SFDCfacts1-card {
+    padding: irem;
+    background: red;
+    margin: .5rem;
+    border-radius: 4px;
+    transition: .5s all;
+  }
+  .SFDCfacts1-title {
+      font-size: large;
+      color: darkblue;
+      text-transform: uppercase;
+  }
+  .SFDCfacts1-body {
+    margin-top: 8px;
+    font-style: normal;
+    color: red;
+  }
+  .SFDCfacts1-card:hover{
+    background: GOLD;
+  
+  }

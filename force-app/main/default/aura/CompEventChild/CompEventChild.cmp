@@ -1,0 +1,9 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+<!--Event Register on child component-->
+ <aura:registerEvent name="cmpEvent" type="c:CompEventApp"/>
+<!-- 5. From the handler, we can get the value from the event in parent components .JS controller. -->
+<!--On click of button fire and event and pass the value from child to parent-->
+ <button class="slds-button slds-button_brand" 
+onclick="{!c.myOnclick}">Child Button</button>
+	
+</aura:component>

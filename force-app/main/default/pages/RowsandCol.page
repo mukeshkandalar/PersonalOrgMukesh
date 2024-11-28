@@ -1,0 +1,32 @@
+<apex:page standardController="Account">
+<apex:form >
+<apex:pageBlock >
+<apex:pageBlockSection columns="2" >
+<apex:pageBlockTable value="{!Account}" var="myUser" id="table1" width="200" >
+     <apex:column value="{!myUser.Name}" />
+     <apex:column value="{!myUser.Phone}" />
+     <apex:column value="{!myUser.Name}" />
+</apex:pageBlockTable>
+
+<apex:pageBlockTable value="{!Account}" var="myUser" id="table2" columnsWidth="100px">
+     <apex:column value="{!myUser.Name}" />
+     <apex:column value="{!myUser.Phone}" />
+     <apex:column value="{!myUser.Name}" />
+</apex:pageBlockTable>
+
+<apex:pageBlockTable value="{!Account}" var="myUser" id="table3" columnsWidth="20">
+     <apex:column value="{!myUser.Name}" />
+     <apex:column value="{!myUser.Phone}" />
+     <apex:column value="{!myUser.Name}" />
+      
+</apex:pageBlockTable>
+
+<apex:pageBlockTable value="{!Account}" var="myUser" id="table4" columnsWidth="20">
+     <apex:column value="{!myUser.Name}" />
+     <apex:column value="{!myUser.Phone}" />
+     <apex:column value="{!myUser.Name}" />
+</apex:pageBlockTable>
+</apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

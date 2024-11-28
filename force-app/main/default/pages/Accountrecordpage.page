@@ -1,0 +1,33 @@
+<apex:page showHeader="true" sidebar="true" controller="Accountrecord" title="Preview Approvals" action="{!runPreview}" tabStyle="Account">
+
+    <apex:pageBlock title="Preview of Applicable Approvals">
+        <apex:repeat value="{!applicableProcesses}" var="ap">
+            <apex:pageBlock title="Approval Process #{!ap.processNumber} - {!ap.processName}">
+                <apex:pageBlockSection columns="1">     
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Description"/>
+                        <apex:outputText value="{!ap.processDescription}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>        
+                <apex:pageBlockSection columns="2">     
+
+                    <apex:repeat value="{!ap.approvalSteps}" var="as">
+                        <apex:pageBlockSectionItem >
+                                <apex:outputText value="Step number" />
+
+                                <apex:outputText value="{!as.stepNumber}" />
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+                                <apex:outputText value="Approver" />
+
+                                <apex:outputText value="{!as.approver}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:repeat>
+
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:repeat>
+    </apex:pageBlock>
+</apex:page>

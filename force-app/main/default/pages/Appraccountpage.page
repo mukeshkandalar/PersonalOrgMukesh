@@ -1,0 +1,7 @@
+<apex:page StandardController="Account" extensions="ApprAccount">
+    
+    <apex:form >
+     <apex:commandButton value="Submit for Approval" action="{!sumbitForApproval}"/>
+    </apex:form>
+ <!-- <apex:relatedList list="ProcessSteps" ></apex:relatedList> !-->
+</apex:page>

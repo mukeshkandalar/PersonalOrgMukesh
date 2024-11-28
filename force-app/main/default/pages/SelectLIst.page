@@ -1,0 +1,35 @@
+<apex:page controller="SelectListController1">
+  <apex:form id="mySweetForm">
+      <apex:pageBlock >
+        <apex:pageBlockSection >    
+             <apex:pageBlockSectionItem >
+                <apex:selectList styleclass="Lista" value="{!ParentValue}" size="1">
+                  <apex:selectOptions value="{!parentOptions}" />
+                  <apex:actionSupport event="onchange" rerender="verticals,n1" action="{!savedetails}">
+                  </apex:actionSupport>
+                </apex:selectList>
+             </apex:pageBlockSectionItem>   
+             <apex:pageBlockSectionItem >
+                <apex:selectList value="{!showRelease}" size="1" id="verticals">
+                    <apex:selectOptions value="{!VerticalOptions}"/>
+                    <apex:actionSupport event="onchange" rerender="n1">
+                    </apex:actionsupport>
+                </apex:selectList>
+             </apex:pageBlockSectionItem>   
+        </apex:pageBlockSection> 
+        <apex:pageBlockSection >
+                   <apex:chart id="n1" height="400" width="1000" data="{!NovasuiteData}"  background="white">
+                        <apex:legend position="bottom"/>
+                        <apex:axis type="Numeric" position="left" fields="a" title="No Of Issues" grid="false" minimum="0"/>
+                        <apex:axis type="Category" position="bottom" fields="name" title="Novasuite">
+                            <apex:chartLabel rotate="360"/>
+                        </apex:axis>
+                        <apex:barSeries orientation="vertical" axis="left" xField="name" yField="a,b" title=" Production Count,Count w/o Govn, Gatings values "  colorSet="darkblue,skyblue,Red" groupGutter="10">
+                            <apex:chartTips height="50" width="100" />
+                         <apex:chartLabel display="outside" orientation="horizontal"/> 
+                        </apex:barSeries>
+                    </apex:chart>              
+        </apex:pageBlockSection>
+      </apex:pageBlock>               
+  </apex:form>
+</apex:page>

@@ -1,0 +1,66 @@
+<apex:page >
+<style>
+  input[type='radio']:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #d1d3d1;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+    }
+
+    input[type='radio']:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #ffa500;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+    }
+    </style>
+<html>
+<body>
+<table border="1">
+    <thead>
+        <tr>
+            <th rowspan="2">CRITERIA</th>
+            <th rowspan="2">RELEASE</th>
+            <th colspan="2">NAME</th>
+        </tr>
+        <tr>
+            <th>PRE-GOVN</th>
+            <th>POST-GOVN</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="3">Code Management</td>
+            <td>code Coverage</td>
+            <td><input type="radio" id="radioButton"/></td>
+            <td><input type="radio" id="radioButton"/></td>
+        </tr>
+        <tr>
+            <td>CodeScan</td>
+            <td><input type="radio" id="radioButton"/></td>
+            <td><input type="radio" id="radioButton"/></td>
+        </tr>
+        <tr>
+            <td>Code Review</td>
+            <td><input type="radio" id="radioButton"/></td>
+            <td><input type="radio" id="radioButton"/></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
+</apex:page>

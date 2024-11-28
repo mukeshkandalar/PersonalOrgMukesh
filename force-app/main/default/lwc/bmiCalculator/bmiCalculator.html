@@ -1,0 +1,9 @@
+<template>
+    <lightning-card title="Bmi cal"></lightning-card>
+    <lightning-input type="number" step="0.01" label="weight in kilogram" onchange={WeighthChange}></lightning-input>
+        <lightning-input type="number" step="0.01" label="height in kilogram" onchange={heightChange}></lightning-input>
+    <lightning-button label="change the value" onclick={calculateBmi}></lightning-button>
+            <p>
+               YOUR BMI VALUE IS :  {bmiValue}
+        </p>
+</template>

@@ -1,0 +1,14 @@
+<apex:page controller="AccountDataController" tabStyle="Account">
+<apex:form >
+  <apex:pageBlock title="Account Data Table">
+  <apex:commandButton value="Export"  action="{!exportAll}"/>
+    <apex:pageBlockTable value="{!accounts}" var="account">
+      <apex:column value="{!account.id}"/>
+      <apex:column value="{!account.name}"/>
+      <apex:column value="{!account.description}"/>
+      <apex:column value="{!account.SLA__c}"/>
+      <apex:column value="{!account.Active__c}"/>
+    </apex:pageBlockTable>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

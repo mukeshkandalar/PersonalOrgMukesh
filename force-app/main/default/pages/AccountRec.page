@@ -1,0 +1,28 @@
+<apex:page controller="AccountRec_Barchart" docType="html-5.0" title="Bar chart" >
+    <apex:form >
+        
+        <apex:outputText value="from Date">
+        </apex:outputText>
+        <apex:input type="date" value="{!fromdate}"/>
+        <apex:outputText value="ToDate"></apex:outputText>
+        <apex:input type="date" value="{!todate}" />
+        <apex:commandButton value="submit" action="{!submit}" reRender="chartid" />
+        
+    </apex:form>
+    
+    <apex:chart id="chartid" height="300" width="650" data="{!data}" colorSet="2A98DC"  resizable="true" >
+        
+        <apex:axis type="Numeric" position="left" fields="count" title="Recordcount" minimum="0" grid="false" />
+        <apex:axis type="Category" position="bottom" fields="billingcityname" title="billingcity"  />
+        <apex:barSeries orientation="vertical" axis="left" xField="billingcityname" yField="count">
+            
+        </apex:barSeries>
+        
+    </apex:chart> 
+    
+    <apex:chart height="300" width="650" data="{!data}" resizable="true">
+        <apex:pieSeries tips="true" dataField="count" labelField="billingcityname"></apex:pieSeries>
+        <apex:legend position="right"/>
+    </apex:chart>
+    
+</apex:page>

@@ -1,0 +1,36 @@
+<template>
+    <lightning-card>
+       <div class="slds-grid slds-wrap">
+          <lightning-file-upload label="Upload Image" name="fileUpload" accept={acceptedFilesFormat}
+             record-id={recordId} multiple onuploadfinished={handleFileUpload}></lightning-file-upload>
+          <template if:false={isPreview}>
+             <template if:true={files}>
+                <div class="slds-col slds-size_12-of-12">
+                   <template if:true={files}>
+                      <template for:each={files} for:item="fUrl">
+                         <div style="margin: 5px; border: 2px solid #ccc; float: left;width: 180px;" key={fUrl.Id}>
+                            <img src={fUrl.src} title={fUrl.name} onclick={handleFilePreview} data-id={fUrl.Id} width="600" height="400">
+                            <div style="padding: 15px;text-align: center;">{fUrl.Description}</div>
+                         </div>
+                      </template>
+                   </template>
+                </div>
+             </template>
+          </template>
+          <div class="slds-col slds-size_12-of-12">
+             <template if:true={isPreview}>
+                <lightning-record-edit-form record-id={currentRecId} object-api-name="ContentDocument"
+                   onsubmit={handleSubmit} onsuccess={handleSuccess}>
+                   <lightning-input-field field-name="Title"></lightning-input-field>
+                   <lightning-input-field field-name="Description"></lightning-input-field>
+                   <div style="text-align:center">
+                      <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update"
+                         label="Update"></lightning-button>
+                      <lightning-button label="Delete" name="delete" onclick={handleDelete} variant="brand"></lightning-button>
+                   </div>
+                </lightning-record-edit-form>
+             </template>
+          </div>
+       </div>
+    </lightning-card>
+ </template>

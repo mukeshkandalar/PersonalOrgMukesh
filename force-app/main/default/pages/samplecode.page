@@ -1,0 +1,27 @@
+<apex:page controller="totalsClass">
+  <style type="text/css">
+
+    .TitleFormat
+    {
+    font-weight:bold;
+    font-size:11pt;
+    padding-bottom:10px;
+    }
+
+</style>
+
+<apex:pageBlock >
+    <apex:form id="Test" >
+        <div>
+            <apex:outputLabel styleClass="TitleFormat">Month</apex:outputLabel><br/>
+            <apex:selectList id="Positions" size="1" value="{!tMonth}" multiselect="false" >
+                <apex:selectOptions value="{!Months}"></apex:selectOptions>
+                <apex:actionSupport event="onchange" reRender="values" action="{!setTotalAgent}"/>
+            </apex:selectList><br/><br/><br/> 
+            <apex:outputLabel value="{!test}"></apex:outputLabel><br/><br/>
+            <apex:outputLabel styleClass="TitleFormat" style="margin-bottom:10px">Total Agency Fee</apex:outputLabel><br/>
+            <apex:outputLabel value="£{!afTotal}" id="values"></apex:outputLabel><br/><br/><br/>  
+        </div>
+    </apex:form>
+</apex:pageBlock>
+</apex:page>

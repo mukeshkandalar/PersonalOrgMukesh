@@ -1,0 +1,13 @@
+<template>
+    <lightning-input type="checkbox" label="Show Dev" onchange={showDivHandler} ></lightning-input>
+    <template if:true={displayDiv}>
+        <div>I am true</div>
+    </template>
+    <template for:each={cityList} for:item="cities">
+    <p key={cities}>{cities}</p>       
+    </template>
+    <h1>Below is an expamle of iterator which identified first and last element thats the benefit than for each</h1>
+    <template iterator:it={cityList}>
+        <p key={it.value}>{it.value}</p>
+        </template>
+</template>
