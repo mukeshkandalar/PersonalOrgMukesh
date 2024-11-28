@@ -4,8 +4,8 @@ public class TestDataFactory {
         List<Account> accts = new List<Account>();
         
         for(Integer i=0;i<numAccts;i++) {
-            Account a = new Account(Name='TestAccount' + i);
-            accts.add(a);
+            Account acc = new Account(Name='TestAccount' + i);
+            accts.add(acc);
         }
         insert accts;
         
